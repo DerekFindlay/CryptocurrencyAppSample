@@ -29,14 +29,14 @@ class CryptoListViewModel @Inject constructor(
         getCryptosUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = _state.value.copy(crypto = result.data ?: emptyList(), isLoading = false)
+                    _state.value = _state.value.copy(crypto = result.data ?: emptyList(), isLoading = false, error = "")
                 }
                 is Resource.Error -> {
                     _state.value =
-                        _state.value.copy(error = result.message ?: "An unexpected error occurred.")
+                        _state.value.copy(error = result.message ?: "An unexpected error occurred.", isLoading = false)
                 }
                 is Resource.Loading -> {
-                    _state.value = _state.value.copy(isLoading = true)
+                    _state.value = _state.value.copy(isLoading = true, error = "")
                 }
             }
 
